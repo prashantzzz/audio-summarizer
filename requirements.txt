@@ -1,0 +1,6 @@
+pyperclip
+SpeechRecognition
+pydub
+transformers
+pyttsx3
+PyDictionary

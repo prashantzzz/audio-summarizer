@@ -1,12 +1,4 @@
-import tkinter as tk
-from tkinter import font as tkFont,filedialog,ttk
-import threading,pyperclip
-from speech_recognition import Recognizer,AudioFile
-from pydub import AudioSegment
-from os import path,remove
-from transformers import T5Tokenizer, T5ForConditionalGeneration
-import logging, pyttsx3
-from PyDictionary import PyDictionary
+ 
 dictionary=PyDictionary()
 
 # Configure logging to suppress transformers warnings
