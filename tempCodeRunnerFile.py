@@ -1,0 +1,1 @@
+ans=dictionary.meaning(word)
