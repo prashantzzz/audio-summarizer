@@ -1,4 +1,13 @@
- 
+import pyttsx3,logging,os
+import tkinter as tk
+from tkinter import font as tkFont,filedialog,ttk
+import threading,pyperclip
+from speech_recognition import Recognizer,AudioFile
+from pydub import AudioSegment
+from os import path,remove
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+from PyDictionary import *
+
 dictionary=PyDictionary()
 
 # Configure logging to suppress transformers warnings
@@ -9,11 +18,13 @@ on_summary=False #global var to check if already summarized or not when btn is c
 prev_text="" #saves original text (transcribed text)
 current_mode = 0 # Create a variable to track the current mode (0 for dark mode, 1 for light mode)
 
+import os
+
 def audio_to_text():
-    global file_extension,on_summary
-    on_summary=False
-    #defaults:
-    audio_file_path=""
+    global file_extension, on_summary
+    on_summary = False
+    # Defaults
+    audio_file_path = ""
     progress_bar["value"] = 0
     file_label.config(text="X No file selected")
     copy_btn.config(text="Copy")
@@ -22,18 +33,25 @@ def audio_to_text():
 
     # Clear any previous text
     text_display.delete("1.0", tk.END)
-    
+
     # Open a file dialog to choose an audio file (accepts both MP3 and WAV)
     audio_file_path = filedialog.askopenfilename(filetypes=[("Audio Files", "*.mp3 *.ogg *.wav")])
 
-    if (audio_file_path):
+    if audio_file_path:
+        # Check the file size
+        file_size_mb = os.path.getsize(audio_file_path) / (1024 * 1024)  # Convert bytes to MB
+        if file_size_mb > 5:
+            text_display.insert(tk.END, "Error: Selected audio file is too large (more than 5MB). Please choose a smaller file.")
+            return
+
         progress_bar.start()
         btn.config(state="disabled")
         copy_btn.config(state="disabled")
 
         text_display.insert(tk.END, "Recognizing...")
 
-        file_label.config(text=path.basename(audio_file_path)[:25]+"...")
+        file_label.config(text=path.basename(audio_file_path)[:25] + "...")
+
         # Determine the file format
         file_extension = audio_file_path.split(".")[-1].lower()
         if file_extension == "mp3":
@@ -41,18 +59,13 @@ def audio_to_text():
             audio = AudioSegment.from_mp3(audio_file_path)
             wav_file_path = audio_file_path.replace(".mp3", ".wav")
             audio.export(wav_file_path, format="wav")
-
         elif file_extension == "ogg":
             # Convert OGG to WAV
             audio = AudioSegment.from_ogg(audio_file_path)
             wav_file_path = audio_file_path.replace(".ogg", ".wav")
             audio.export(wav_file_path, format="wav")
-
-        else: wav_file_path = audio_file_path
-        audio=AudioSegment.from_wav(wav_file_path)
-        audio_len = len(audio)/1000/1.88  # Audio duration in seconds
-        audio_len=round(audio_len, 1)
-        text_display.insert(tk.END, f"(Estimated time: {audio_len}s)")
+        else:
+            wav_file_path = audio_file_path
 
         threading.Thread(target=recognize, args=(wav_file_path,)).start()
         # audio=AudioSegment.from_wav(wav_file_path)
@@ -63,7 +76,7 @@ def audio_to_text():
         #     progress_bar["value"] = progress
         #     app.update_idletasks()
         #     current_time_ms += 0.5  # Update progress every 1 second
-    return;
+    return
 
 def recognize(wav_file_path):
     # Initialize the recognizer
@@ -201,7 +214,7 @@ def saveit():
             file.write(text_display.get("1.0", tk.END))
 
 def read_text():
-    threading.thread(target=speak).start()
+    threading.Thread(target=speak).start()
 
 def speak():
     text_to_read = text_display.get("1.0", tk.END).strip()
