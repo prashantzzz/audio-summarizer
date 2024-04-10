@@ -1,1 +1,1 @@
-ans=dictionary.meaning(word)
+pyper
