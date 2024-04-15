@@ -7,3 +7,4 @@ PyDictionary
 pytorch
 pillow
 SentencePiece
+pyautogui

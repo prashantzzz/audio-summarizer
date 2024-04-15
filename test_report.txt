@@ -1,0 +1,11 @@
+Choose Audio button found and clicked ✔
+waiting for 12 secs
+Copy button found and clicked ✔
+Text copied successfully: in technology have revolutionized the way we live and work from smartphones that connect us instantly to information and people around the world to artificial intelligence systems that can analyse massive data sets in second
+Meaning button found and clicked ✔
+waiting for 10 secs
+Read button found and clicked ✔
+waiting for 12 secs
+Summarize button found and clicked ✔
+waiting for 12 secs
+Toggle theme button found and clicked ✔

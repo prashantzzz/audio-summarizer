@@ -1,62 +1,73 @@
+import os
 import pyautogui
 import time
 import pyperclip
 
-print("Testing starting in",end="")
-for i in range(5):
-    print(i,end=" > ")
+for i in range(5,0,-1):
+    print("Test starting in",i,">")
     time.sleep(1)
-print()
 
 def sleep(n):
-    print("waiting for",n,"secs")
+    print("waiting for " + str(n) + " secs")
     time.sleep(n)
+
 def click_image(image_path, message):
     try:
         image_pos = pyautogui.locateCenterOnScreen(image_path)
         if image_pos:
             pyautogui.click(image_pos)
-            print(message + " found and clicked.")
+            printit(message + " found and clicked ✔")
         else:
-            print(message + " not found!")
+            printit(message + " not found! X")
     except pyautogui.ImageNotFoundException:
-        print("Error: Could not locate the button:",image_path)
+        printit("X Could not locate: " + os.path.basename(image_path))
+
+def printit(text):
+    with open("test_report.txt", "a", encoding="utf-8") as f:
+        print(text, file=f)
+    print(text)
+
+# Get current directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Clear existing content in the test report file
+open("test_report.txt", "w").close()
 
 # Click on the "Choose Audio File" button
-click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\choose_audio_button.png", "Choose Audio button")
+click_image(os.path.join(current_dir, "choose_audio_button.png"), "Choose Audio button")
 
 # Path to your audio file
-file_path = r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\sample-speech.mp3"
+file_path = os.path.join(current_dir, "sample-speech.mp3")
 time.sleep(1)
 pyautogui.write(file_path)
 pyautogui.press('enter')
 sleep(12)
 
 # Click on the "Copy" button
-click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\copy_button.png", "Copy button")
+click_image(os.path.join(current_dir, "copy_button.png"), "Copy button")
 
 # Verify that the text has been copied to the clipboard
 copied_text = pyperclip.paste()
 if copied_text.strip() != "":
-    print("Text copied successfully:",copied_text)
+    printit("Text copied successfully: " + copied_text)
 else:
-    print("Failed to copy text.")
+    printit("Failed to copy text.")
 
 # Click on the "Means" button
-click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\means_button.png", "Meaning button")
+click_image(os.path.join(current_dir, "means_button.png"), "Meaning button")
 sleep(10)
 
 # Click on the "Read" button
-click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\read_button.png", "Read button")
+click_image(os.path.join(current_dir, "read_button.png"), "Read button")
 sleep(12)
 
 # Click on the "Summarize" button
-click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\summarize_button.png", "Summarize button")
+click_image(os.path.join(current_dir, "summarize_button.png"), "Summarize button")
 sleep(12)
 
 # Click on the "Toggle Mode" button
-click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\theme.png", "Toggle theme button")
+click_image(os.path.join(current_dir, "theme.png"), "Toggle theme button")
 time.sleep(2)
 
-# Capture screenshot for documentation
-pyautogui.screenshot('gui_test_report.png')
+# Print test report saved
+print("Test report saved!")
