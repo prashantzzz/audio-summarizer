@@ -8,6 +8,9 @@ for i in range(5):
     time.sleep(1)
 print()
 
+def sleep(n):
+    print("waiting for",n,"secs")
+    time.sleep(n)
 def click_image(image_path, message):
     try:
         image_pos = pyautogui.locateCenterOnScreen(image_path)
@@ -27,7 +30,7 @@ file_path = r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Tra
 time.sleep(1)
 pyautogui.write(file_path)
 pyautogui.press('enter')
-time.sleep(12)
+sleep(12)
 
 # Click on the "Copy" button
 click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\copy_button.png", "Copy button")
@@ -41,19 +44,19 @@ else:
 
 # Click on the "Means" button
 click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\means_button.png", "Meaning button")
-time.sleep(10)
+sleep(10)
 
 # Click on the "Read" button
 click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\read_button.png", "Read button")
-time.sleep(12)
+sleep(12)
 
 # Click on the "Summarize" button
 click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\summarize_button.png", "Summarize button")
-time.sleep(12)
+sleep(12)
 
 # Click on the "Toggle Mode" button
 click_image(r"C:\Users\asus\Documents\01-Prashant\Prashant coder\tkinter(pk)\Transcriptor V2.0\theme.png", "Toggle theme button")
 time.sleep(2)
 
 # Capture screenshot for documentation
-pyautogui.screenshot('gui_test_screenshot.png')
+pyautogui.screenshot('gui_test_report.png')
