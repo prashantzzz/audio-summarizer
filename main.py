@@ -250,14 +250,13 @@ bold_font = tkFont.Font(family="Arial", size=12, weight="bold")
 # Create a label1 for instructions
 label1 = tk.Label(app, bg="light blue", fg="black", text="  Select an audio file (.mp3/ogg/wav) and wait until loading completes!  ", font=bold_font)
 label1.pack(pady=15, padx=15)
- 
 
 # Create a frame for 'Save' button and result_label
 bottom_frame = tk.Frame(app, bg="lightblue")
 bottom_frame.pack(side="bottom", fill="both",padx=10, pady=5)
 
 # Create a 'Save' button
-save_btn = tk.Button(bottom_frame,font=custom_font, command=saveit, text="Save💾", bg="white", fg="black")
+save_btn = tk.Button(bottom_frame,font=custom_font, command=saveit, text="Save", bg="white", fg="black")
 save_btn.pack(side="right", padx=5)
 
 # Create meaning label
@@ -289,22 +288,22 @@ file_label = tk.Label(app, text="X No file selected", bg="light blue", fg="black
 file_label.pack(pady=5, side="left")
 
 # Button to copy the text
-copy_btn = tk.Button(app, text="Copy📋", command=copyit, relief="flat", bg="white", fg="black")
+copy_btn = tk.Button(app, text="Copy", command=copyit, font=custom_font, relief="flat", bg="white", fg="black")
 copy_btn.pack(anchor="e", pady=10, padx=10, side="right")
 
 # Button to summarize the text
-summary_btn = tk.Button(app, text="Summarize", command=summarize, relief="flat", bg="white", fg="black", state="disabled")
+summary_btn = tk.Button(app, text="Summarize", command=summarize, font=custom_font, relief="flat", bg="white", fg="black", state="disabled")
 summary_btn.pack(anchor="e", pady=10, side="right")
 
 # Create a button to toggle between dark and light modes
-toggle_mode_btn = tk.Button(app, text=" 🌙 ", command=toggle_mode, relief="flat", bg="white", fg="black", font=tkFont.Font(size=8, weight="bold"))
+toggle_mode_btn = tk.Button(app, text="Theme", command=toggle_mode, font=custom_font, relief="flat", bg="white", fg="black")
 toggle_mode_btn.pack(anchor="e", pady=10, padx=10, side="right")
 
 # Button to find word meanings
-means_btn = tk.Button(app, text="Means🔎", command=meaning, relief="flat", bg="white", fg="black")
+means_btn = tk.Button(app, text="Means", command=meaning, font=custom_font, relief="flat", bg="white", fg="black")
 means_btn.pack(anchor="e", pady=10, side="right")
 
-read_btn = tk.Button(app, text="Read🔊", command=read_text, relief="flat", bg="white", fg="black")
+read_btn = tk.Button(app, text="Read", command=read_text, font=custom_font, relief="flat", bg="white", fg="black")
 read_btn.pack(anchor="e", pady=10, padx=10, side="right")
 
 # Switch to light mode
